@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" href="https://media-cdn.grubhub.com/image/upload/d_search:browse-images:default.jpg/w_300,q_100,fl_lossy,dpr_2.0,c_fit,f_auto,h_300/qmulcwqduiuh3ejeswny" type="image/x-icon">
+  <title>Foodies App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #main-content {
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    .restaurant-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+
+    .restaurant-grid a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      background-color: #fff;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .item:hover {
+      transform: scale(1.05);
+    }
+
+    .item img {
+      width: 300px;
+      height: 300px;
+    }
+
+    .item-details {
+      padding: 15px;
+    }
+
+    .item-details h3 {
+      margin: 10px 0 5px;
+      font-size: 1.2em;
+    }
+
+    .item-details p {
+      margin: 5px 0 10px;
+      color: #555;
+    }
+
+    .rating {
+      font-size: 1em;
+      color: #ff9900;
+    }
+
+    footer {
+      display: none;
+      background-color: #f1f1f1;
+      padding: 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cart {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 10px 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+    }
+
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+    }
+    .rating {
+      font-size: 1.25em;
+      color: #ff9900;
+    }
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: #e92222;
+      color: #fff;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 14px;
+    }
+    .back-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 10px 20px;
+      background-color: #e92222;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main id="main-content" style="display: none;">
+    <div class="image-container">
+      <img src="https://media-cdn.grubhub.com/image/upload/d_search:browse-images:default.jpg/w_300,q_100,fl_lossy,dpr_2.0,c_fit,f_auto,h_300/qmulcwqduiuh3ejeswny" style="border-radius: 100%;height: 100px;width: 170px;align-items:center;">
+    </div>
+    <hr>
+    <div class="cart">
+      <div class="cart-icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/34/34627.png" alt="Cart" width="40">
+        <span class="cart-count" id="cart-count">0</span>
+      </div>
+      <div><button class="back-button" onclick="goBack()">Back</button></div>
+    </div>
+    <section class="restaurant-grid">
+        <a href="pistahouse.html" >
+          <div class="item" data-lat="17.493447" data-lng="78.604968">
+            <img src="https://www.licious.in/blog/wp-content/uploads/2022/06/chicken-hyderabadi-biryani-01.jpg" width="250px" height="250px">
+            <div class="item-text">
+              <u><h1>Pista House</h1></u>
+              <h3>Hyderabadi Biryani, Shawarma</h3>
+              <p>Rampally, Secunderabad</p>
+              <span class="rating">Rating: ★★★★☆</span>
+            </div>
+          </div>
+        </a>
+        <a href="sribalaji.html">
+          <div class="item" data-lat="17.493447" data-lng="78.604968">
+            <img src="https://www.posist.com/restaurant-times/wp-content/uploads/2016/10/A-Detailed-Guide-On-Starting-A-Bakery-Business-In-India-In-2023.jpg" alt="Chicken Biryani" width="250px" height="250px">
+            <div class="item-text">
+              <u><h1>Sri Balaji Bakery</h1></u>
+              <h3>Bakery, Fast Food</h3>
+              <p>Rampally X Road, Secunderabad</p>
+              <span class="rating">Rating: ★★★☆☆</span>
+            </div>
+          </div>
+        </a>
+        <a href="lemonleaf.html">
+          <div class="item" data-lat="17.507210" data-lng="78.629481">
+            <img src="https://j6e2i8c9.rocketcdn.me/wp-content/uploads/2020/09/Chicken-Biryani-Recipe-01-1.jpg" width="250px" height="250px">
+            <div class="item-text">
+              <u><h1>Lemon Leaf Hotel</h1></u>
+              <h3>Chicken Biryani, North Indian</h3>
+              <p>Cheeriyal, Secunderabad</p>
+              <span class="rating">Rating: ★★★★☆</span>
+            </div>
+          </div>
+        </a>
+        <a href="sriram.html">
+          <div class="item" data-lat="17.479446" data-lng="78.586048">
+            <img src="https://www.shutterstock.com/image-photo/assorted-pastry-bread-arranged-on-600nw-2169704423.jpg" width="250px" height="250px">
+            <div class="item-text">
+              <u><h1>Sri Ram Bakery</h1></u>
+              <h3>Bakery, Fast Food, Dessert</h3>
+              <p>ECIL, Secunderabad</p>
+              <span class="rating">Rating: ★★★★☆</span>
+            </div>
+          </div>
+        </a>
+        <a href="kumbakarna.html">
+          <div class="item" data-lat="17.479338" data-lng="75.559284">
+            <img src="https://b.zmtcdn.com/data/pictures/chains/7/19274407/d5a88340456e3b28c6c97846f49444e7.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*" width="250px" height="250px">
+            <div class="item-text">
+              <u><h1>Kumbhakaran Restaurant</h1></u>
+              <h3>Andhra, Mughlai, Seafood</h3>
+              <p>A S Rao Nagar, Secunderabad</p>
+              <span class="rating">Rating: ★★★★☆</span>
+            </div>
+          </div>
+        </a>
+                
+            <a href="trishul.html"><div class="item" data-lat="17.508414" data-lng="78.631032">
+              <img src="https://b.zmtcdn.com/data/pictures/4/20876174/bede1a2dd9c729d1ac4a031336d95e6c.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*" width="250px" height="250px">
+              <div class="item-text">
+                <u><h1>Trishul Restaurant & Bar</h1></u>
+                <h3>Bar Food, Chinese</h3>
+                <p>Cheeriyal Khaman, Secunderabad</p>
+                <span class="rating">Rating: ★★★★☆</span>
+              </div>
+          </div></a>
+                
+            <a href="udipi.html"><div class="item" data-lat="17.500964" data-lng="78.622294">
+              <img src="https://b.zmtcdn.com/data/pictures/chains/3/90943/c59f9af4331de01a09639c3d62e0df39.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*" width="250px" height="250px">
+              <div class="item-text">
+                <u><h1>Udipi's Upahar</h1></u>
+                <h3>South Indian, North Indian</h3>
+                <p>Bandlaguda, Secunderabad</p>
+                <span class="rating">Rating: ★★★☆☆</span>
+              </div>
+            </div></a>
+      
+            <a href="red.html"><div class="item" data-lat="18.483818" data-lng="78.565013">
+              <img src="https://b.zmtcdn.com/data/pictures/chains/6/20342656/ab3ab7a16aecd80d2cea37a74a658c94.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*" width="250px" height="250px">
+              <div class="item-text">
+                <u><h1>Red Bucket Biryani</h1></u>
+                <h3>Biryani</h3>
+                <p>Kapra, Secunderabad</p>
+                <span class="rating">Rating: ★★★☆☆</span>
+              </div>
+            </div></a>
+      
+            <a href="retro.html"><div class="item" data-lat="17.508414" data-lng="78.629481">
+              <img src="https://b.zmtcdn.com/data/pictures/7/21019547/cb20555dd1b0783c94db7f0eb642aad8.jpeg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"  width="250px" height="250px">
+              <div class="item-text">
+                <u><h1>Retro Restaurant</h1></u>
+                <h3>Andhra, North Indian, Chinese</h3>
+                <p>Cheeriyal, Secunderabad</p>
+                <span class="rating">Rating: ★★★★☆</span>
+              </div>
+            </div></a>
+  
+            <a href="braketime.html"><div class="item" data-lat="17.508414" data-lng="78.629481">
+              <img src="https://b.zmtcdn.com/data/pictures/chains/1/20905331/46dbd15f310b34451b8efa4b1f80937e.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"  width="250px" height="250px">
+              <div class="item-text">
+                <u><h1>Brake Time Restaurant</h1></u>
+                <h3>North Indian, Chinese, Sichuan</h3>
+                <p>Cheeriyal, Secunderabad</p>
+                <span class="rating">Rating: ★★★★☆</span>
+              </div>
+            </div></a>
+      
+            <a href="santosh.html"><div class="item" data-lat="17.507210" data-lng="78.604968">
+              <img src="https://b.zmtcdn.com/data/pictures/7/20126277/ba0a98c27644c0b24bc2f9727bf386b5.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*"  width="250px" height="250px">
+              <div class="item-text">
+                <u><h1>Santosh Tiffin And Meals</h1></u>
+                <h3>North Indian</h3>
+                <p>Rampally, Secunderabad</p>
+                <span class="rating">Rating: ★★★☆☆</span>
+              </div>
+            </div></a>
+      </section>
+  </main>
+
+  <footer id="footer">
+    <a href="about.html">About Us</a>    &nbsp;
+    <a href="terms.html">Terms and Conditions</a>   &nbsp;
+    <a href="contactus.html">Contact Us</a>   &nbsp;
+    <a href="privacy.html">Privacy Policy</a>    &nbsp;
+    <p>Copyright © 2024. All Rights Reserved</p>
+  </footer>
+
+  <script>
+    const mainContent = document.getElementById('main-content');
+    var footer = document.getElementById('footer');
+
+    // Check if user location is already stored
+    const userLocation = localStorage.getItem('userLocation');
+    if (userLocation) {
+      // Location already stored, proceed with finding restaurants
+      const { latitude, longitude } = JSON.parse(userLocation);
+      findMatchingRestaurants(latitude, longitude);
+      mainContent.style.display = 'block';
+      footer.style.display = 'block';
+    } else {
+    // Request user location on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    });
+  }
+
+    function successCallback(position) {
+      const userLatitude = position.coords.latitude;
+      const userLongitude = position.coords.longitude;
+      findMatchingRestaurants(userLatitude, userLongitude);
+      mainContent.style.display = 'block'; // Display main content after location check
+      footer.style.display = "block";
+    }
+
+    function errorCallback(error) {
+      console.error('Error getting user location:', error);
+      // Handle location access error gracefully (e.g., display an error message)
+      alert('Error getting your location. Please enable location services and try again.');
+    }
+
+    function findMatchingRestaurants(userLatitude, userLongitude) {
+      const restaurantElements = document.querySelectorAll('.item');
+      let anyMatch = false;
+
+      for (const restaurantElement of restaurantElements) {
+        const restaurantLatitude = parseFloat(restaurantElement.dataset.lat);
+        const restaurantLongitude = parseFloat(restaurantElement.dataset.lng);
+
+        const distance = calculateDistance(userLatitude, userLongitude, restaurantLatitude, restaurantLongitude);
+
+        if (distance < 5) { // Adjust MAX_ALLOWED_DISTANCE as needed (in kilometers)
+          restaurantElement.style.display = 'block';
+          anyMatch = true;
+        } else {
+          restaurantElement.style.display = 'none';
+        }
+      }
+
+      if (!anyMatch) {
+        alert('No matching restaurants found within your location.');
+      }
+    }
+
+    // Haversine formula to calculate distance between two points in km
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371; // Radius of the Earth in km
+      const dLat = deg2rad(lat2 - lat1);
+      const dLon = deg2rad(lon2 - lon1);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c;
+      return distance;
+    }
+
+    function deg2rad(deg) {
+      return deg * (Math.PI / 180);
+    }
+
+    function    goBack() {
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foodies Registration</title>
+<link rel="icon" href="https://media-cdn.grubhub.com/image/upload/d_search:browse-images:default.jpg/w_300,q_100,fl_lossy,dpr_2.0,c_fit,f_auto,h_300/qmulcwqduiuh3ejeswny" type="image/x-icon">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-image: url("https://www.eatthis.com/wp-content/uploads/sites/4/2024/03/BurgerKingBurgers-Main.jpg?quality=82&strip=all");
+      background-size: cover;
+      background-position: center;
+    }
+
+    form {
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 5px;
+      border: 2px solid red;
+      height: 495px;
+      width: 450px;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    #toastBox {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      min-width: 200px;
+    }
+
+    .toast {
+      display: none;
+      min-height: 50px;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #fff;
+      color: #333;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      animation: fadein 0.5s, fadeout 0.5s 4.5s;
+    }
+
+    .toast .tick-icon {
+      margin-right: 10px;
+      font-size: 1.2em;
+      color: green;
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeout {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <form id="registrationForm">
+    <h1 align="center"><u>Foodies Registration Form</u></h1>
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" required>
+    <br><br>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" required>
+    <br><br>
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" name="email" required>
+    <br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <br><br>
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+    <br><br>
+    <input type="checkbox" id="terms" required>
+    <label for="terms">I agree to the Foodies Terms of Service and Privacy Policy.</label>
+    <br><br>
+    <button type="submit"><strong>Create Account</strong></button>
+    <br><br>
+    <p>Already have an account?<a href="index.html"> Login Here!</a></p>
+  </form>
+
+  <div id="toastBox"></div>
+
+  <script>
+    document.getElementById("registrationForm").addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      showToast('Account created successfully!');
+      
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1000);
+    });
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      
+      const tickIcon = document.createElement('span');
+      tickIcon.className = 'tick-icon';
+      tickIcon.innerHTML = '&#10004;';
+
+      const toastMessage = document.createElement('span');
+      toastMessage.textContent = message;
+
+      toast.appendChild(tickIcon);
+      toast.appendChild(toastMessage);
+
+      const toastBox = document.getElementById('toastBox');
+      toastBox.appendChild(toast);
+
+      toast.style.display = 'flex';
+
+      setTimeout(() => {
+        toast.style.display = 'none';
+        toastBox.removeChild(toast);
+      }, 5000);
+    }
+  </script>
+</body>
+</html>

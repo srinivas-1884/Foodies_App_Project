@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foodies App</title>
+  <link rel="stylesheet" href="style.css">
+ <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+    }
+
+    header {
+        text-align: center;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .imgcontainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    img:hover {
+        transform: scale(1.05);
+    }
+
+    .boxcont {
+        text-align: center;
+        background-color: #fcfcfc;
+        padding: 10px;
+    }
+
+    .menu-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        padding: 20px;
+        margin: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 500px;
+    }
+
+    .menu-item img {
+        width: 150px;
+        height: 150px;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+
+    .menu-item .info {
+        flex: 1;
+        color: black
+    }
+
+    .menu-item .info span {
+        display: block;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .menu-item .price {
+        color: #28a745;
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .back-button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 10px 20px;
+        background-color: #e92222;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .quantity-controls {
+        display: flex;
+        align-items: center;
+    }
+
+    .quantity-controls button {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 5px;
+    }
+
+    .quantity-controls button:hover {
+        background-color: #0056b3;
+    }
+
+    .quantity-controls span {
+        font-size: 16px;
+        margin: 0 5px;
+    }
+
+    .cart {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 10px 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+    }
+
+    .cart-icon {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: #e92222;
+        color: #fff;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 14px;
+    }
+
+    .menu-toggle {
+        display: flex;
+        justify-content: center;
+        margin: 20px;
+    }
+
+    .menu-toggle button {
+        padding: 10px 20px;
+        margin: 0 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .menu-toggle button:hover {
+        background-color: #0056b3;
+    }
+
+    .cart-container {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+    }
+
+    .cart-items {
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 20px;
+    }
+
+    .cart-item {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-item img {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    .cart-item .cart-item-details {
+        flex: 1;
+    }
+
+    .cart-item .cart-item-details span {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .cart-item .cart-item-price {
+        font-weight: bold;
+        color: green;
+    }
+
+    .cart-item-prices {
+        font-weight: bold;
+        color: red;
+    }
+
+    .order-total {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .payment-form {
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        border: 2px solid #000;
+    }
+
+    .payment-form label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .payment-form select, .payment-form button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .payment-form button {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .totalPriceSpan {
+        color: #e92222;
+    }
+
+    .payment-form button:hover {
+        background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+        .menu-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .menu-item img {
+            margin-right: 0;
+            margin-bottom: 10px;
+            width: 100%;
+            height: auto;
+        }
+
+        .menu-toggle {
+            flex-direction: column;
+        }
+
+        .menu-toggle button {
+            margin: 10px 0;
+        }
+
+        .payment-form {
+            padding: 15px;
+        }
+
+        .payment-form select, .payment-form button {
+            font-size: 14px;
+            padding: 8px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .menu-item {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .quantity-controls button {
+            padding: 5px;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .cart-item {
+            padding: 5px;
+        }
+        
+        .cart-items {
+            padding: 0 10px;
+        }
+        .a{
+          text-decoration: none;
+        }
+
+        .payment-form {
+            padding: 10px;
+        }
+
+        .payment-form label {
+            font-size: 14px;
+        }
+
+        .payment-form select, .payment-form button {
+            font-size: 12px;
+            padding: 6px;
+        }
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="imgcontainer">
+          <img src="https://lh3.googleusercontent.com/MvpVWgaG43JV0WWDl4CZ8nY7Js37yonp3NPA16AKJbR5ALS8SNZ1cnRRGGhSVIAo2FQx4OFkk8Xkds772WhPKluyWxqx4WUX_6NKi-Np-g=w1200-rw" style="height: 300px; width: 500px;">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjVNFku46zcbCCKzoJOTPnQyZXDqmkORlpoFiuvzc6ZQ&s" style="height: 300px;">
+    
+          <img src="https://img.restaurantguru.com/cae6-The-LemonLeaf-Fine-dine-Restaurant-Punalur-food.jpg?@m@t@s@d" style="height: 300px;">
+        </div>
+        <div class="boxcont">
+          <hr>
+          <h1>Lemon Leaf Hotel</h1>
+          <p>Cheeriyal, Secunderabad</p>
+          <hr>
+        </div>
+      </header>
+
+  <div class="cart">
+    <div class="cart-icon" onclick="showCart()">
+      <img src="https://cdn-icons-png.flaticon.com/512/34/34627.png" alt="Cart" width="40">
+      <span class="cart-count" id="cart-count">0</span>
+    </div>
+    <div class="back">
+      <button class="back-button" onclick="goBack()">Back</button>
+    </div>
+  </div>
+
+  <main>
+    <h2 align="center">MENU</h2>
+    
+    <div class="menu-toggle">
+      <button id="veg-btn">Vegetarian</button>
+      <button id="nonveg-btn">Non-Vegetarian</button>
+    </div>
+    
+    <div id="veg-menu-container" class="menu-container"></div>
+    <div id="nonveg-menu-container" class="menu-container" style="display: none;"></div>
+
+    <div id="cart-container" class="cart-container">
+      <h2>Your Cart</h2>
+      <div id="cart-items" class="cart-items"></div>
+
+      <div id="order-summary">
+        <div class="order-total">
+          <p>Total: ₹<span id="total-amount">0.00</span></p>
+        </div>
+
+        <div class="payment-form">
+          <h3>Select Payment Method</h3>
+          <label for="payment-method"><u>Payment Method:</u></label>
+          <select id="payment-method" name="payment-method">
+            <option value="credit_card">Credit Card</option>
+            <option value="debit_card">Debit Card</option>
+            <option value="net_banking">Net Banking</option>
+            <option value="upi">UPI</option>
+          </select>
+          <button id="submit-order">Place Order</button><br><hr>
+            <button><a href="https://rzp.io/l/JAsJMiVN">Pay by Razorpay</a></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p><h5><i>By continuing past this page, you agree to our Terms of Service, Cookie Policy, Privacy Policy and Content Policies. All trademarks are properties of their respective owners. 2024 © Foodies Ltd. All rights reserved.</p></h5></i>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const vegMenuItems = [
+        { item: 'Potato dosa', price: 45, image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqRxjatTERTCsUhr299oUWqCtbpXFSIO4tMpjaTK8ZBA&s", description: "Creamy and rich Potato dosa with a touch of Indian spices." },
+        { item: 'Masala puri', price: 50, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3oGilWLDKo5pweigUvCkRGGsWUg5Jus-OTj36qcihwQ&s", description: "Aromatic and flavorful masala puri ." },
+        { item: 'Masala pav', price: 70, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrBWJWXnkSe5ARsPIvSGKFDnehdRyijx5RBRtO-n3RWA&s", description: "Spicy chickpeas served with masala pav ." }
+      ,
+          { item: 'Bombay potatoes', price: 60, image: "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/11/bombay-potatoes-recipe.jpg", description: " Majic bombay potatoes." }
+      ,
+           { item: 'Matar paneer curry', price: 50, image: "https://www.indianhealthyrecipes.com/wp-content/uploads/2021/07/matar-paneer-1.jpg", description: "crispy matar paneer curry." }
+      ];
+      const nonVegMenuItems = [
+        { item: 'Chicken Curry', price: 110, image: "https://www.cubesnjuliennes.com/wp-content/uploads/2020/07/Instant-Pot-Chicken-Curry-Recipe.jpg", description: "Aromatic, flavorful and authentic chicken curry." },
+        { item: 'Chicken Briyani',price: 180, image: "https://www.indianhealthyrecipes.com/wp-content/uploads/2021/12/chicken-biryani.jpg.webp", description: "Rich and savory chicken briyani, slow-cooked to perfection." },
+        { item: 'Chicken butter masala', price: 195, image: "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/07/chicken-butter-masala-recipe.jpg", description: "Delicious chicken butter masala." }
+      ,
+        { item: 'Fish roast', price: 200, image:"https://www.sinamontales.com/dotcord/uploads/2011/01/everyday-fish-roast-recipe.1024x1024.jpg", description: "special Fish Item." }
+      ,
+        { item: 'Mutton curry', price: 250, image: "https://www.yummytummyaarthi.com/wp-content/uploads/2015/02/1-2.jpg", description: "No.1 in Mutton." }
+      ];
+
+  const vegMenuContainer = document.getElementById('veg-menu-container');
+  const nonVegMenuContainer = document.getElementById('nonveg-menu-container');
+  const cartContainer = document.getElementById('cart-container');
+  const cartItemsContainer = document.getElementById('cart-items');
+  const totalAmountElement = document.getElementById('total-amount');
+
+  let orderItems = {};
+
+  function createMenuItem(menuItem) {
+    const menuItemDiv = document.createElement('div');
+    menuItemDiv.classList.add('menu-item');
+
+    const itemImage = document.createElement('img');
+    itemImage.src = menuItem.image;
+    itemImage.alt = menuItem.item;
+
+    const itemInfo = document.createElement('div');
+    itemInfo.classList.add('info');
+
+    const itemName = document.createElement('span');
+    itemName.textContent = menuItem.item;
+
+    const itemDescription = document.createElement('span');
+    itemDescription.textContent = menuItem.description;
+
+    const itemPrice = document.createElement('span');
+    itemPrice.classList.add('price');
+    itemPrice.textContent = `₹${menuItem.price.toFixed(2)}`;
+
+    const quantityControls = document.createElement('div');
+    quantityControls.classList.add('quantity-controls');
+
+    const addButton = document.createElement('button');
+    addButton.textContent = '+';
+    addButton.addEventListener('click', () => {
+      if (!orderItems[menuItem.item]) {
+        orderItems[menuItem.item] = { count: 0, price: menuItem.price };
+      }
+      orderItems[menuItem.item].count += 1;
+      updateCart();
+      itemCount.textContent = orderItems[menuItem.item].count;
+    });
+
+    const removeButton = document.createElement('button');
+    removeButton.textContent = '-';
+    removeButton.addEventListener('click', () => {
+      if (orderItems[menuItem.item] && orderItems[menuItem.item].count > 0) {
+        orderItems[menuItem.item].count -= 1;
+        if (orderItems[menuItem.item].count === 0) {
+          delete orderItems[menuItem.item];
+        }
+        updateCart();
+        itemCount.textContent = orderItems[menuItem.item] ? orderItems[menuItem.item].count : 0;
+      }
+    });
+
+    const itemCount = document.createElement('span');
+    itemCount.textContent = '0';
+
+    quantityControls.appendChild(removeButton);
+    quantityControls.appendChild(itemCount);
+    quantityControls.appendChild(addButton);
+
+    itemInfo.appendChild(itemName);
+    itemInfo.appendChild(itemDescription);
+    itemInfo.appendChild(itemPrice);
+    itemInfo.appendChild(quantityControls);
+
+    menuItemDiv.appendChild(itemImage);
+    menuItemDiv.appendChild(itemInfo);
+
+    return menuItemDiv;
+  }
+
+  function updateCart() {
+  cartItemsContainer.innerHTML = '';
+  let totalAmount = 0;
+  Object.keys(orderItems).forEach(itemName => {
+    const item = orderItems[itemName];
+    const cartItemDiv = document.createElement('div');
+    cartItemDiv.classList.add('cart-item');
+
+    const menuItem = vegMenuItems.concat(nonVegMenuItems).find(menuItem => menuItem.item === itemName);
+
+    const itemImage = document.createElement('img');
+    itemImage.src = menuItem.image;
+    itemImage.alt = itemName;
+    itemImage.classList.add('cart-item-image');
+
+    const itemDetailsDiv = document.createElement('div');
+    itemDetailsDiv.classList.add('cart-item-details');
+
+    const itemNameSpan = document.createElement('span');
+    itemNameSpan.textContent = itemName;
+
+    const itemQuantitySpan = document.createElement('span');
+    itemQuantitySpan.textContent = `x${item.count}`;
+
+    const itemPriceSpan = document.createElement('span');
+    itemPriceSpan.classList.add('cart-item-price');
+    itemPriceSpan.textContent = `  ₹${item.price.toFixed(0)}`;
+
+    const totalPriceSpan = document.createElement('span');
+    totalPriceSpan.classList.add('cart-item-prices');
+    totalPriceSpan.textContent = `Total: ₹${(item.count * item.price).toFixed(0)}`;
+
+    itemDetailsDiv.appendChild(itemNameSpan);
+    itemDetailsDiv.appendChild(itemQuantitySpan);
+    itemDetailsDiv.appendChild(itemPriceSpan);
+    itemDetailsDiv.appendChild(totalPriceSpan);
+
+    cartItemDiv.appendChild(itemImage);
+    cartItemDiv.appendChild(itemDetailsDiv);
+
+    cartItemsContainer.appendChild(cartItemDiv);
+
+    totalAmount += item.count * item.price;
+  });
+
+  totalAmountElement.textContent = totalAmount.toFixed(0);
+  document.getElementById('cart-count').textContent = Object.values(orderItems).reduce((acc, cur) => acc + cur.count, 0);
+
+  if (Object.keys(orderItems).length === 0) {
+    cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+  }
+}
+
+
+  vegMenuItems.forEach(menuItem => {
+    const menuItemDiv = createMenuItem(menuItem);
+    vegMenuContainer.appendChild(menuItemDiv);
+  });
+
+  nonVegMenuItems.forEach(menuItem => {
+    const menuItemDiv = createMenuItem(menuItem);
+    nonVegMenuContainer.appendChild(menuItemDiv);
+  });
+
+  document.getElementById('veg-btn').addEventListener('click', () => {
+    vegMenuContainer.style.display = 'flex';
+    nonVegMenuContainer.style.display = 'none';
+    cartContainer.style.display = 'none';
+  });
+
+  document.getElementById('nonveg-btn').addEventListener('click', () => {
+    vegMenuContainer.style.display = 'none';
+    nonVegMenuContainer.style.display = 'flex';
+    cartContainer.style.display = 'none';
+  });
+
+  document.getElementById('submit-order').addEventListener('click', () => {
+    const paymentMethod = document.getElementById('payment-method').value;
+    alert(`Payment successful via ${paymentMethod}. Thank you for your order!`);
+    orderItems = {};
+    updateCart();
+  });
+
+  window.showCart = function() {
+    vegMenuContainer.style.display = 'none';
+    nonVegMenuContainer.style.display = 'none';
+    cartContainer.style.display = 'flex';
+    updateCart();
+  };
+});
+
+  document.getElementById('submit-orders').addEventListener('click', () => {
+    const paymentMethod = document.getElementById('payment-method').value;
+    orderItems = {};
+    updateCart();
+  });
+
+    function goBack() {
+      window.location.href = 'restaurant.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foodies Login</title>
+  <link rel="icon" href="https://media-cdn.grubhub.com/image/upload/d_search:browse-images:default.jpg/w_300,q_100,fl_lossy,dpr_2.0,c_fit,f_auto,h_300/qmulcwqduiuh3ejeswny" type="image/x-icon">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background-image: url("https://s3-alpha.figma.com/hub/file/3761412223/de92a481-23c7-4814-950b-bf7fb6c38cf5-cover.png");
+    }
+
+    form {
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 5px;
+      border: 2px solid red;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="loginForm">
+    <h1 class="center">Foodies Login</h1>  
+    <div class="center">
+      <label for="email">Email Id:</label>
+      <input type="email" id="email" name="email" required>
+      <br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <br><br>
+      <input type="checkbox" id="showPassword">
+      <label for="showPassword">Show Password</label>
+      <br><br>
+      <a href="#">Forgot Password?</a>
+      <br><br>
+      <button type="submit"><b>Login</b></button>
+      <br><br>
+      <p>Don't have an account yet? </p><a href="registration_form.html">Sign Up Now!</a>
+      <div id="errorMessage" class="error"></div>
+    </div>
+  </form>
+
+  <script>
+    document.getElementById("showPassword").addEventListener('click', function() {
+      var passwordInput = document.getElementById("password");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    });
+
+    document.getElementById("loginForm").addEventListener('submit', function(event) {
+      event.preventDefault();
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      var errorMessage = document.getElementById("errorMessage");
+
+      if (email === "admin@gcet.com" && password === "123") {
+        window.location.href = "restaurant.html"; 
+      } else {
+        errorMessage.textContent = "Invalid user";
+      }
+    });
+  </script>
+</body>
+</html>
