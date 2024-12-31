@@ -1,1 +1,1 @@
-# Foodies_App_Project
+# Foodies App Project
